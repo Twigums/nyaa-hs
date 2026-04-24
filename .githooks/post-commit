@@ -1,0 +1,2 @@
+#!/bin/sh
+sed -i 's/commit: [0-9a-f]\{40\}/commit: {hash}/' README.md

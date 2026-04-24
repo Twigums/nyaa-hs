@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:nyaa="https://nyaa.si/xmlns/nyaa">
+  <channel>
+    <title>Nyaa</title>
+    <link>https://nyaa.si</link>
+    <description>Nyaa RSS Feed</description>
+    <item>
+      <title>Test Anime S01E01</title>
+      <link>https://nyaa.si/download/123456.torrent</link>
+      <guid>https://nyaa.si/view/123456</guid>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 -0000</pubDate>
+      <nyaa:seeders>42</nyaa:seeders>
+      <nyaa:leechers>7</nyaa:leechers>
+      <nyaa:downloads>100</nyaa:downloads>
+      <nyaa:infoHash>ABCDEF1234567890ABCDEF1234567890ABCDEF12</nyaa:infoHash>
+      <nyaa:category>Anime - English-translated</nyaa:category>
+      <nyaa:categoryId>1_2</nyaa:categoryId>
+      <nyaa:size>300 MiB</nyaa:size>
+      <nyaa:trusted>Yes</nyaa:trusted>
+      <nyaa:remake>No</nyaa:remake>
+    </item>
+    <item>
+      <title>Another Show EP05</title>
+      <link>https://nyaa.si/download/999.torrent</link>
+      <guid>https://nyaa.si/view/999</guid>
+      <pubDate>Tue, 02 Jan 2024 12:00:00 -0000</pubDate>
+      <nyaa:seeders>10</nyaa:seeders>
+      <nyaa:leechers>2</nyaa:leechers>
+      <nyaa:downloads>50</nyaa:downloads>
+      <nyaa:infoHash>DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF</nyaa:infoHash>
+      <nyaa:category>Anime - Raw</nyaa:category>
+      <nyaa:categoryId>1_4</nyaa:categoryId>
+      <nyaa:size>700 MiB</nyaa:size>
+      <nyaa:trusted>No</nyaa:trusted>
+      <nyaa:remake>Yes</nyaa:remake>
+    </item>
+  </channel>
+</rss>

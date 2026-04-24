@@ -1,0 +1,131 @@
+cabal-version: 3.0
+name:          nyaa
+version:       0.1.0.0
+synopsis:      Unofficial scraper API for nyaa
+description:
+  Scrapes nyaa.si and sukebei.nyaa.si for anime torrent data.
+  Provides types, search functions, magnet builder, and category lookup.
+homepage:      https://github.com/Twigums/nyaa-hs
+bug-reports:   https://github.com/Twigums/nyaa-hs/issues
+license:       MIT
+license-file:  LICENSE
+author:        https://github.com/Twigums
+maintainer:    https://github.com/Twigums
+category:      Web, Network
+build-type:    Simple
+extra-source-files:
+    LICENSE
+tested-with:
+    GHC == 9.2.*
+  , GHC == 9.4.*
+  , GHC == 9.6.*
+  , GHC == 9.8.*
+
+source-repository head
+  type:     git
+  location: https://github.com/Twigums/nyaa-hs
+
+common common-options
+  default-language: Haskell2010
+  default-extensions:
+    DeriveGeneric
+    DeriveAnyClass
+    DerivingStrategies
+    GeneralizedNewtypeDeriving
+    OverloadedStrings
+    LambdaCase
+    ScopedTypeVariables
+    TupleSections
+    TypeApplications
+  ghc-options:
+    -Wall
+    -Wcompat
+    -Widentities
+    -Wincomplete-record-updates
+    -Wincomplete-uni-patterns
+    -Wredundant-constraints
+
+library
+  import:          common-options
+  hs-source-dirs:  src
+  exposed-modules:
+      Nyaa
+    , Nyaa.Types
+    , Nyaa.Search
+    , Nyaa.Magnet
+    , Nyaa.Categories
+    , Nyaa.Site.Nyaa
+    , Nyaa.Site.Sukebei
+  other-modules:
+      Nyaa.Internal.Http
+    , Nyaa.Internal.Parser
+    , Nyaa.Internal.Parser.Html
+    , Nyaa.Internal.Parser.Rss
+    , Nyaa.Internal.Utils
+  build-depends:
+      base              >= 4.14  && < 5
+    , text              >= 1.2   && < 2.2
+    , bytestring        >= 0.10  && < 0.13
+    , containers        >= 0.6   && < 0.8
+    , aeson             >= 2.0   && < 2.3
+    , req               >= 3.9   && < 3.14
+    , http-types        >= 0.12  && < 0.13
+    , http-client       >= 0.7   && < 0.8
+    , data-default-class >= 0.1   && < 0.2
+    , html-conduit      >= 1.3   && < 1.4
+    , xml-conduit       >= 1.9   && < 1.11
+
+flag build-cli
+  description: Build the nyaa CLI executable
+  default:     True
+  manual:      True
+
+executable nyaa
+  import:          common-options
+  if !flag(build-cli)
+    buildable: False
+  main-is:         Main.hs
+  hs-source-dirs:  app
+  build-depends:
+      base
+    , nyaa
+    , text
+    , aeson
+    , bytestring
+
+test-suite nyaa-test
+  import:          common-options
+  type:            exitcode-stdio-1.0
+  main-is:         Spec.hs
+  hs-source-dirs:  test, src
+  other-modules:
+      Nyaa.MagnetSpec
+    , Nyaa.CategoriesSpec
+    , Nyaa.Internal.UtilsSpec
+    , Nyaa.Internal.Parser.HtmlSpec
+    , Nyaa.Internal.Parser.RssSpec
+    , Nyaa.Internal.Utils
+    , Nyaa.Internal.Parser
+    , Nyaa.Internal.Parser.Html
+    , Nyaa.Internal.Parser.Rss
+    , Nyaa.Types
+    , Nyaa.Categories
+    , Nyaa.Magnet
+    , Nyaa.Search
+    , Nyaa.Site.Nyaa
+    , Nyaa.Site.Sukebei
+    , Nyaa.Internal.Http
+    , Nyaa
+  build-depends:
+      base
+    , hspec             >= 2.0  && < 3.0
+    , bytestring        >= 0.10 && < 0.13
+    , text              >= 1.2  && < 2.2
+    , containers        >= 0.6  && < 0.8
+    , aeson             >= 2.0  && < 2.3
+    , req               >= 3.9  && < 3.14
+    , http-types        >= 0.12 && < 0.13
+    , http-client       >= 0.7  && < 0.8
+    , data-default-class >= 0.1 && < 0.2
+    , html-conduit      >= 1.3  && < 1.4
+    , xml-conduit       >= 1.9  && < 1.11

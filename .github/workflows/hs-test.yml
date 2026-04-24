@@ -1,0 +1,49 @@
+name: Run Haskell Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: haskell-actions/setup@v2.7
+      id: setup-haskell
+      with:
+        ghc-version: '9.6.6'
+        enable-stack: true
+        stack-version: 'latest'
+
+    # CACHES
+
+    - name: Cache - stack global package db
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.setup-haskell.outputs.stack-root }}
+        key: ${{ runner.os }}-stack-global-${{ hashFiles('**/*.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-stack-global-
+
+    - name: Cache - .stack-work
+      uses: actions/cache@v4
+      with:
+        path: |
+          .stack-work
+          */.stack-work
+        key: ${{ runner.os }}-stack-work-${{ hashFiles('**/*.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-stack-work-
+
+    - name: Install dependencies
+      run: stack build --test --only-dependencies
+
+    - name: Build
+      run: stack build
+
+    - name: Run tests
+      run: stack test

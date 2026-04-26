@@ -1,2 +1,12 @@
 #!/bin/sh
+
+if [ -n "$AMENDING" ]; then
+  exit 0
+
+fi
+
 sed -i 's/commit: [0-9a-f]\{40\}/commit: {hash}/' README.md
+git add README.md
+
+export AMENDING=1
+git commit --amend --no-edit

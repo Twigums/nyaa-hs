@@ -11,7 +11,7 @@ With `stack`, add to `stack.yaml`:
 ```yaml
 extra-deps:
   - git: https://github.com/Twigums/nyaa-hs
-    commit: {hash}
+    commit: 3cf06aa29954f4b7a580d7d902e62962dedca949
 ```
 
 ### CLI

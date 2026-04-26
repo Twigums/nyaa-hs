@@ -11,7 +11,7 @@ With `stack`, add to `stack.yaml`:
 ```yaml
 extra-deps:
   - git: https://github.com/Twigums/nyaa-hs
-    commit: 73572d28c84d156ca194876a62025d18098244b4
+    commit: {hash}
 ```
 
 ### CLI
@@ -32,17 +32,18 @@ Sites {site: optional}:
   sukebei (nsfw)
 
 Commands {command: required} {args: optional/required}:
-  last {n}                Last `n` uploads (`n`: optional)
-  search {keyword} {page} Search by `keyword` on `page` (`keyword`: required; `page`: optional)
-  get {id}                View details of torrent given `id` (`id`: required)
-  user {name} {lim}       View uploads by user limited to `lim` items (`name`: required; `lim`: optional)
+  last {n}                         Last `n` uploads (`n`: optional)
+  search {keyword} {page} {--all}  Search by `keyword` on `page`, defaulted to trusted-only or all torrents if `--all` is provided (`keyword`: required; `page`, `--all`: optional)
+  get {id}                         View details of torrent given `id` (`id`: required)
+  user {name} {lim}                View uploads by user limited to `lim` items (`name`: required; `lim`: optional)
 
 Examples:
-  nyaa search "attack on titan"   -> Returns all available torrent information for "attack on titan"
-  nyaa nyaa last 10               -> Returns the last 10 uploads on nyaa
-  nyaa sukebei search foo 2       -> Returns all available torrent information on page 2 of sukebei for "foo"
-  nyaa get 111                    -> Returns torrent information on torrent with `id = 111`
-  nyaa user Twigums 67            -> Returns, at most, 67 torrent items by `user = Twigums`
+  nyaa search "attack on titan"          -> Returns trusted-only torrent information for "attack on titan"
+  nyaa search "attack on titan" --all    -> Returns all torrent information for "attack on titan" (no filter)
+  nyaa nyaa last 10                      -> Returns the last 10 uploads on nyaa
+  nyaa sukebei search foo 2              -> Returns all available torrent information on page 2 of sukebei for "foo"
+  nyaa get 111                           -> Returns torrent information on torrent with `id = 111`
+  nyaa user Twigums 67                   -> Returns, at most, 67 torrent items by `user = Twigums`
 ```
 
 Output is JSON on stdout. Errors print to stderr with non-zero exit.
